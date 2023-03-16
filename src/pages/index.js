@@ -1,7 +1,12 @@
 import Head from "next/head";
-import Image from "next/image";
+import Img from "@/components/img";
+import "../styles/Home.module.scss";
+import Footer from "@/components/footer";
+import Form from "@/components/form";
 
 export default function Home() {
+  const handleChange = () => {};
+
   return (
     <>
       <Head>
@@ -10,7 +15,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="font-bold underline">HEllo</main>
+      <main>
+        <section className="flex lg:flex-row flex-col bg-gray-400">
+          <Img />
+          <Form />
+        </section>
+        <Footer />
+      </main>
     </>
   );
 }
