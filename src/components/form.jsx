@@ -4,7 +4,7 @@ export default function Form() {
   return (
     <section
       className="p-12 flex flex-col lg:w-2/4 h-screen w-screen 
-h-full justify-center items-center"
+ justify-center items-center"
     >
       <div>
         <div className="p-2">
