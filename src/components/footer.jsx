@@ -26,20 +26,20 @@ export default function Footer() {
 
             <div className="flex mt-5 md:flex-row flex-col">
               <nav>
-                <ul className="flex">
-                  <li className="ml-2">
+                <ul className="flex lg:flex-row flex-col">
+                  <li className="lg:ml-2 fom">
                     <Link className="text-2xl font-bold" href="/">
                       Home
                     </Link>
                   </li>
 
-                  <li className="ml-8">
+                  <li className="lg:ml-8 fom">
                     <Link className="text-2xl font-bold" href="/">
                       About us
                     </Link>
                   </li>
 
-                  <li className="ml-8">
+                  <li className="lg:ml-8 fom">
                     <a className="text-2xl font-bold" href="">
                       My other projects
                     </a>

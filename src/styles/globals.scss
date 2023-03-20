@@ -24,6 +24,33 @@ html {
   height: 50vh;
 }
 
+.height{
+  height: auto;
+}
+
+.nav-container{
+  display: flex;
+  flex-direction: column;
+  padding-left: 10%;
+
+  .list{
+    margin-top: 6%;
+    display: flex;
+    align-items: center;
+    padding-left: 4%;
+    border-radius: 5%;
+    padding: 5%;
+    &:hover{
+      background-color: yellowgreen;
+    }
+    
+    .link{
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+  }
+}
+
 @media screen and (max-width: 767px) {
   //   div {
   .fom {
