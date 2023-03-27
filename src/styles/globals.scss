@@ -51,6 +51,10 @@ html {
   }
 }
 
+.task{
+  width: 20%;
+}
+
 #thin-font{
   font-weight: 100;
   font-size: 1rem;
@@ -58,12 +62,17 @@ html {
 
 .header{
   background: url(../images/header-background.jpg) center/cover;
+  height: 30vh;
 }
 
 @media screen and (max-width: 767px) {
   //   div {
   .fom {
     margin-top: 5%;
+  }
+
+  .task{
+    width: 40%;
   }
 
   .footer {
@@ -75,4 +84,9 @@ html {
   .footer {
     height: auto;
   }
+
+  .task{
+    width: 40%;
+  }
+
 }
