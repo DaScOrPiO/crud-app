@@ -23,7 +23,7 @@ export default function Form() {
           <form className="mt-12 px-4">
             <div className="flex flex-col md:flex-row w-full">
               <div className="fom w-full md:mr-8 md:w-2/4">
-                <label className="font-bold">
+                <label htmlFor="" className="font-bold">
                   Name:
                   <input
                     className="w-full py-2 px-2 text-black rounded-md focus:outline-none"
@@ -34,7 +34,7 @@ export default function Form() {
               </div>
 
               <div className="fom w-full md:w-2/4 md:ml-8">
-                <label for="password" className="font-bold">
+                <label htmlfor="password" className="font-bold">
                   Password:
                   <input
                     type="password"

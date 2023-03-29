@@ -51,6 +51,10 @@ html {
   }
 }
 
+.no-display {
+  display: none;
+}
+
 .task {
   width: 20%;
 }
@@ -80,6 +84,13 @@ html {
   height: 30vh;
 }
 
+.icon {
+  position: absolute;
+  right: 4%;
+  top: 1%;
+  display: none;
+}
+
 @media screen and (max-width: 767px) {
   //   div {
   .fom {
@@ -93,12 +104,16 @@ html {
     }
   }
 
-  .sidebar {
-    display: none;
-  }
+  // .sidebar {
+  //   display: none;
+  // }
 
   .task {
     width: 40%;
+  }
+
+  .icon {
+    display: flex;
   }
 
   .footer {
@@ -115,8 +130,12 @@ html {
     width: 40%;
   }
 
-  .sidebar{
-    display: none;
+  // .sidebar {
+  //   display: none;
+  // }
+
+  .icon {
+    display: flex;
   }
 
   .page-container {

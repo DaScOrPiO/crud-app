@@ -7,13 +7,12 @@ import { CgDisplayGrid } from "react-icons/cg";
 import { BiCalendar } from "react-icons/bi";
 import Button from "@/components/button";
 
-export default function Dashboard({ fixedHeight }) {
+export default function Dashboard({ display }) {
   return (
     <div
       className="sidebar lg:w-1/4 w-full bg-yellow-400 flex flex-col px-4"
-      // style={{ height: fixedHeight }}
     >
-      <div className="logo-con w-full p-2" style={{height: `calc(100% - ${fixedHeight})`}}>
+      <div className="logo-con w-full p-2">
         <h2 className="text-2xl mt-4 font-bold">Taskmate</h2>
         <p>Focus, priortize, Excecute</p>
 
