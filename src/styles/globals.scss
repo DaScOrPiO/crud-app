@@ -70,7 +70,7 @@ html {
     position: fixed;
     top: 0;
     bottom: 0;
-    overflow-y: auto !important;
+    overflow-y: auto;
   }
 
   .page-items {
@@ -91,6 +91,17 @@ html {
   display: none;
 }
 
+@keyframes myAnim {
+  25% {
+    left: -400px;
+  }
+
+  100% {
+    left: 0;
+  }
+
+}
+
 @media screen and (max-width: 767px) {
   //   div {
   .fom {
@@ -104,10 +115,9 @@ html {
     }
   }
 
-  // .sidebar {
-  //   display: none;
-  // }
-
+  .sidebar {
+    animation: myAnim .8s ease;
+  }
   .task {
     width: 40%;
   }

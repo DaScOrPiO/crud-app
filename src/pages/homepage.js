@@ -3,6 +3,7 @@ import Task from "@/components/Task";
 import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GrClose } from "react-icons/gr";
+import { delay, motion, AnimatePresence } from "framer-motion";
 
 export default function Homepage() {
   const [Width, setWidth] = useState(globalThis.window?.innerWidth);
@@ -25,7 +26,7 @@ export default function Homepage() {
     }
 
     if (Width <= breakPoint2 && Nav) {
-      element.classList.remove("no-display");
+      element.classList.remove("no-display", "mobile-animate");
     }
   };
 
@@ -53,12 +54,23 @@ export default function Homepage() {
 
   return (
     <div className="page-container bg-blue-900 w-screen flex md:flex-row flex-col">
-      <div ref={ref}>
-        <Dashboard />
-      </div>
+      <AnimatePresence>
+        <motion.div ref={ref}>
+          <Dashboard
+            state={Nav}
+            width={Width}
+            mobileBreakPoint={mobileBreakPoint}
+            breakPoint2={breakPoint2}
+          />
+        </motion.div>
+      </AnimatePresence>
 
       <i className="icon z-10" onClick={showNav}>
-        {Nav ? <RxHamburgerMenu size={50} /> : <GrClose size={50} className="close" />}
+        {Nav ? (
+          <GrClose size={50} className="close" />
+        ) : (
+          <RxHamburgerMenu size={50} />
+        )}
       </i>
 
       <div className="page-items bg-red-400 flex flex-col px-4 py-4">
