@@ -13,10 +13,7 @@ export default function Dashboard() {
   return (
     <>
       <AnimatePresence>
-        <motion.div
-          className="sidebar lg:w-1/4 w-full bg-yellow-400 flex flex-col px-4"
-          // ref={ref1}
-        >
+        <motion.div className="sidebar lg:w-1/4 w-full bg-yellow-400 flex flex-col px-4">
           <div className="logo-con w-full p-2">
             <h2 className="text-2xl mt-4 font-bold">Taskmate</h2>
             <p>Focus, priortize, Excecute</p>
