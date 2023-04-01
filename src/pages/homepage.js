@@ -80,7 +80,7 @@ export default function Homepage() {
 
   return (
     <div
-      className="page-container bg-blue-900 w-screen flex md:flex-row flex-col"
+      className="page-container w-screen flex md:flex-row flex-col"
       onClick={handleClickOutside}
     >
       <AnimatePresence>
@@ -96,22 +96,22 @@ export default function Homepage() {
 
       <i className="icon z-10" onClick={showNav}>
         {Nav ? (
-          <GrClose size={50} className="close" />
+          <GrClose size={50} color="white" className="close" />
         ) : (
-          <RxHamburgerMenu size={50} />
+          <RxHamburgerMenu size={50} color="white" />
         )}
       </i>
 
-      <div className="page-items bg-red-400 flex flex-col px-4 py-4">
+      <div className="page-items flex flex-col px-4 py-4">
         <header
           className="header flex justify-between
-         text-white w-full p-2 bg-orange-500 items-end"
+         text-white w-full p-2 items-end"
         >
           <h2 className="text-center text-2xl">Projects</h2>
           <h2 className="text-center text-2xl">20/03/2023</h2>
         </header>
 
-        <div className="w-full mt-4 bg-purple-400 flex flex-col py-4">
+        <div className="w-full mt-4 flex flex-col py-4">
           <h2 className="text-2xl font-bold mt-6">Tasks</h2>
 
           <div className="flex flex-col mt-4">

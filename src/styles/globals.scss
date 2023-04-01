@@ -41,7 +41,7 @@ html {
     border-radius: 5%;
     padding: 5%;
     &:hover {
-      background-color: yellowgreen;
+      background-color: #969600;
     }
 
     .link {
@@ -66,11 +66,18 @@ html {
 
 .page-container {
   position: relative;
+  background: radial-gradient( #96937F 0%, #6D6D6F 80%, #C3C3C3 100%);
   .sidebar {
     position: fixed;
     top: 0;
     bottom: 0;
     overflow-y: auto;
+    background-color: #202020;
+    color: aliceblue;
+  }
+
+  .color {
+    color: black;
   }
 
   .page-items {
@@ -99,7 +106,6 @@ html {
   100% {
     left: 0;
   }
-
 }
 
 @media screen and (max-width: 767px) {
@@ -116,8 +122,8 @@ html {
   }
 
   .sidebar {
-    animation: myAnim .8s ease;
-    width: 100% !important;
+    animation: myAnim 0.8s ease;
+    width: 80% !important;
   }
   .task {
     width: 40%;
@@ -154,13 +160,13 @@ html {
       width: 100%;
       margin-left: 0%;
     }
-    .sidebar{
+    .sidebar {
       width: 40%;
-      animation: myAnim .8s ease;
+      animation: myAnim 0.8s ease;
     }
   }
 
-  #half-nav{
+  #half-nav {
     width: 10%;
     display: flex;
     flex-direction: column;

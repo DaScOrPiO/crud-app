@@ -7,13 +7,12 @@ import { CgDisplayGrid } from "react-icons/cg";
 import { BiCalendar } from "react-icons/bi";
 import Button from "@/components/button";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRef, useEffect, useState, use } from "react";
 
 export default function Dashboard() {
   return (
     <>
       <AnimatePresence>
-        <motion.div className="sidebar lg:w-1/4 w-full bg-yellow-400 flex flex-col px-4">
+        <motion.div className="sidebar lg:w-1/4 w-full flex flex-col px-4">
           <div className="logo-con w-full p-2">
             <h2 className="text-2xl mt-4 font-bold">Taskmate</h2>
             <p>Focus, priortize, Excecute</p>
@@ -28,7 +27,7 @@ export default function Dashboard() {
                 />
               </div>
 
-              <div className="w-3/5 flex flex-col items-center justify-center">
+              <div className="w-3/5 flex flex-col items-center justify-center color">
                 <h2>Irvan Moses</h2>
                 <h2>Example@yahoo.com</h2>
               </div>
