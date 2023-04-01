@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MdOutlineExpandMore } from "react-icons/md";
+import { IoMdArrowDropleft } from "react-icons/io";
 import Link from "next/link";
 import { GrOverview, GrUserSettings } from "react-icons/gr";
 import { BsReverseListColumnsReverse } from "react-icons/bs";
@@ -7,12 +8,19 @@ import { CgDisplayGrid } from "react-icons/cg";
 import { BiCalendar } from "react-icons/bi";
 import Button from "@/components/button";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState, forwardRef } from "react";
 
-export default function Dashboard() {
+const Dashboard = forwardRef(function Dashboard(props, ref) {
+  const [nav, setNav] = useState(false);
+
+  const NavDisplay = () => {
+    setNav((prev) => !prev);
+  };
+
   return (
     <>
       <AnimatePresence>
-        <motion.div className="sidebar lg:w-1/4 w-full flex flex-col px-4">
+        <motion.div className="sidebar lg:w-1/4 w-full flex flex-col px-4" ref={ref}>
           <div className="logo-con w-full p-2">
             <h2 className="text-2xl mt-4 font-bold">Taskmate</h2>
             <p>Focus, priortize, Excecute</p>
@@ -37,62 +45,67 @@ export default function Dashboard() {
           <div className="greetings h-auto p-2 w-full mt-4">
             <h2 className="text-center text-2xl">Good morning Oladunni</h2>
 
-            <div className="flex flex-col mt-6">
+            <div
+              className="flex flex-col mt-6 hover:cursor-pointer"
+              onClick={NavDisplay}
+            >
               <div className="flex justify-between mt-4">
                 <h2 className="text-2xl">Menu</h2>
                 <div className="text-2xl hover:text-gray-300 hover:cursor-pointer">
-                  <MdOutlineExpandMore />
+                  {nav ? <MdOutlineExpandMore /> : <IoMdArrowDropleft />}
                 </div>
               </div>
 
-              <nav>
-                <ul className="nav-container">
-                  <li className="list">
-                    <span className="mr-4">
-                      <GrOverview />
-                    </span>
-                    <Link className="link" href="/about">
-                      Overview
-                    </Link>
-                  </li>
+              {nav && (
+                <nav className="transition-all duration-500 ease-in-out">
+                  <ul className="nav-container">
+                    <li className="list">
+                      <span className="mr-4">
+                        <GrOverview />
+                      </span>
+                      <Link className="link" href="/about">
+                        Overview
+                      </Link>
+                    </li>
 
-                  <li className="list">
-                    <span className="mr-4">
-                      <BsReverseListColumnsReverse />
-                    </span>
-                    <Link className="link flex" href="#">
-                      Task List
-                    </Link>
-                  </li>
+                    <li className="list">
+                      <span className="mr-4">
+                        <BsReverseListColumnsReverse />
+                      </span>
+                      <Link className="link flex" href="#">
+                        Task List
+                      </Link>
+                    </li>
 
-                  <li className="list">
-                    <span className="mr-4">
-                      <CgDisplayGrid />
-                    </span>
-                    <Link className="link flex" href="">
-                      Project Overview
-                    </Link>
-                  </li>
+                    <li className="list">
+                      <span className="mr-4">
+                        <CgDisplayGrid />
+                      </span>
+                      <Link className="link flex" href="">
+                        Project Overview
+                      </Link>
+                    </li>
 
-                  <li className="list">
-                    <span className="mr-4">
-                      <BiCalendar />
-                    </span>
-                    <Link className="link flex" href="">
-                      Calendar
-                    </Link>
-                  </li>
+                    <li className="list">
+                      <span className="mr-4">
+                        <BiCalendar />
+                      </span>
+                      <Link className="link flex" href="">
+                        Calendar
+                      </Link>
+                    </li>
 
-                  <li className="list">
-                    <span className="mr-4">
-                      <GrUserSettings />
-                    </span>
-                    <Link className="link flex" href="">
-                      Settings
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
+                    <li className="list">
+                      <span className="mr-4">
+                        <GrUserSettings />
+                      </span>
+                      <Link className="link flex" href="">
+                        Settings
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              )}
             </div>
           </div>
 
@@ -121,4 +134,6 @@ export default function Dashboard() {
       </AnimatePresence>
     </>
   );
-}
+});
+
+export default Dashboard;

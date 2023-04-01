@@ -52,19 +52,19 @@ export default function Homepage() {
     }
   }, [Width]);
 
-  useEffect(() => {
-    const handleLinkClick = (e) => {
-      if (
-        (Width <= mobileBreakPoint && ref.current.contains(e.target)) ||
-        (Width <= breakPoint2 && ref.current.contains(e.target))
-      ) {
-        ref.current.classList.add("no-display");
-      }
-    };
-    document.addEventListener("click", handleLinkClick);
+  // useEffect(() => {
+  //   const handleLinkClick = (e) => {
+  //     if (
+  //       (Width <= mobileBreakPoint && ref.current.contains(e.target)) ||
+  //       (Width <= breakPoint2 && ref.current.contains(e.target))
+  //     ) {
+  //       ref.current.classList.add("no-display");
+  //     }
+  //   };
+  //   document.addEventListener("click", handleLinkClick);
 
-    return () => document.removeEventListener("click", handleLinkClick);
-  }, [Width, mobileBreakPoint]);
+  //   return () => document.removeEventListener("click", handleLinkClick);
+  // }, [Width, mobileBreakPoint]);
 
   const handleClickOutside = (e) => {
     if (
@@ -85,12 +85,7 @@ export default function Homepage() {
     >
       <AnimatePresence>
         <motion.div ref={ref}>
-          <Dashboard
-            state={Nav}
-            width={Width}
-            mobileBreakPoint={mobileBreakPoint}
-            breakPoint2={breakPoint2}
-          />
+          <Dashboard />
         </motion.div>
       </AnimatePresence>
 
