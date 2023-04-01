@@ -21,7 +21,7 @@ export default function Homepage() {
       element.classList.add("no-display");
     }
 
-    if (Width <= mobileBreakPoint && Nav) {
+    if (Width <= mobileBreakPoint && !Nav) {
       element.classList.remove("no-display");
     }
 
@@ -52,8 +52,37 @@ export default function Homepage() {
     }
   }, [Width]);
 
+  useEffect(() => {
+    const handleLinkClick = (e) => {
+      if (
+        (Width <= mobileBreakPoint && ref.current.contains(e.target)) ||
+        (Width <= breakPoint2 && ref.current.contains(e.target))
+      ) {
+        ref.current.classList.add("no-display");
+      }
+    };
+    document.addEventListener("click", handleLinkClick);
+
+    return () => document.removeEventListener("click", handleLinkClick);
+  }, [Width, mobileBreakPoint]);
+
+  const handleClickOutside = (e) => {
+    if (
+      (Width <= mobileBreakPoint && !ref.current.contains(e.target) && !Nav) ||
+      (Width <= breakPoint2 && !ref.current.contains(e.target) && !Nav)
+    ) {
+      ref.current.classList.add("no-display");
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  };
+
   return (
-    <div className="page-container bg-blue-900 w-screen flex md:flex-row flex-col">
+    <div
+      className="page-container bg-blue-900 w-screen flex md:flex-row flex-col"
+      onClick={handleClickOutside}
+    >
       <AnimatePresence>
         <motion.div ref={ref}>
           <Dashboard

@@ -9,43 +9,13 @@ import Button from "@/components/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useEffect, useState, use } from "react";
 
-export default function Dashboard({
-  state,
-  width,
-  mobileBreakPoint,
-  BreakPoint2,
-}) {
-  const [nav, setNav] = useState(state);
-  const [Width1, setWidth1] = useState(width);
-
-  const ref2 = useRef();
-  const ref1 = useRef();
-  useEffect(() => {
-    const hideNav = (e) => {
-      if (Width1 <= mobileBreakPoint && ref2.current.contains(e.target)) {
-        ref1.current.classList.add("no-display");
-        console.log(ref2.current, e.target);
-      } else {
-        ref1.current.classList.remove("no-display");
-      }
-    };
-    document.addEventListener("click", hideNav);
-
-    return () => document.removeEventListener("mousedown", hideNav);
-  }, [Width1, mobileBreakPoint]);
-
-  //   return document.removeEventListener("mousedown", hideNav);
-  // });
-
+export default function Dashboard() {
   return (
     <>
       <AnimatePresence>
         <motion.div
-          // initial={{ x: 100 }}
-          // animate={{ x: 0 }}
-          // transition={{ delay: 0.5 }}
           className="sidebar lg:w-1/4 w-full bg-yellow-400 flex flex-col px-4"
-          ref={ref1}
+          // ref={ref1}
         >
           <div className="logo-con w-full p-2">
             <h2 className="text-2xl mt-4 font-bold">Taskmate</h2>
@@ -79,7 +49,7 @@ export default function Dashboard({
                 </div>
               </div>
 
-              <nav ref={ref2}>
+              <nav>
                 <ul className="nav-container">
                   <li className="list">
                     <span className="mr-4">
