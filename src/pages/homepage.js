@@ -2,13 +2,14 @@ import Dashboard from "@/components/dashboard";
 import Task from "@/components/Task";
 import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { GrClose } from "react-icons/gr";
+import { AiOutlineClose } from "react-icons/ai";
 import { delay, motion, AnimatePresence } from "framer-motion";
 
 export default function Homepage() {
   const [Width, setWidth] = useState(globalThis.window?.innerWidth);
   const [Nav, setNav] = useState(false);
   const ref = useRef();
+  const iconRef = useRef();
 
   const mobileBreakPoint = 767;
   const breakPoint2 = 1023;
@@ -17,30 +18,30 @@ export default function Homepage() {
     setNav((prev) => !prev);
     const element = ref.current;
 
-    if (!Nav) {
-      element.classList.add("no-display");
-    }
+    // if (!Nav) {
+    //   element.classList.add("no-display");
+    // }
 
-    if (Width <= mobileBreakPoint && !Nav) {
+    if (Width <= mobileBreakPoint && Nav) {
       element.classList.remove("no-display");
     }
 
     if (Width <= breakPoint2 && Nav) {
-      element.classList.remove("no-display", "mobile-animate");
+      element.classList.remove("no-display");
     }
   };
 
   useLayoutEffect(() => {
     const element = ref.current;
     console.log(ref.current);
-    if (Width <= mobileBreakPoint) {
+    if (Width <= mobileBreakPoint && !Nav) {
       window.addEventListener(
         "resize",
         setWidth((prev) => prev)
       );
 
       element.classList.add("no-display");
-    } else if (Width <= breakPoint2) {
+    } else if (Width <= breakPoint2 && !Nav) {
       window.addEventListener(
         "resize",
         setWidth((prev) => prev)
@@ -50,27 +51,20 @@ export default function Homepage() {
     } else {
       element.classList.remove("no-display");
     }
-  }, [Width]);
-
-  // useEffect(() => {
-  //   const handleLinkClick = (e) => {
-  //     if (
-  //       (Width <= mobileBreakPoint && ref.current.contains(e.target)) ||
-  //       (Width <= breakPoint2 && ref.current.contains(e.target))
-  //     ) {
-  //       ref.current.classList.add("no-display");
-  //     }
-  //   };
-  //   document.addEventListener("click", handleLinkClick);
-
-  //   return () => document.removeEventListener("click", handleLinkClick);
-  // }, [Width, mobileBreakPoint]);
+  }, [Width, Nav]);
 
   const handleClickOutside = (e) => {
     if (
-      (Width <= mobileBreakPoint && !ref.current.contains(e.target) && !Nav) ||
-      (Width <= breakPoint2 && !ref.current.contains(e.target) && !Nav)
+      (Width <= mobileBreakPoint &&
+        !ref.current.contains(e.target) &&
+        !Nav &&
+        !iconRef.current.contains(e.target)) ||
+      (Width <= breakPoint2 &&
+        !ref.current.contains(e.target) &&
+        !Nav &&
+        !iconRef.current.contains(e.target))
     ) {
+      setNav(false);
       ref.current.classList.add("no-display");
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -89,9 +83,9 @@ export default function Homepage() {
         </motion.div>
       </AnimatePresence>
 
-      <i className="icon z-10" onClick={showNav}>
+      <i className="icon z-10" onClick={showNav} ref={iconRef}>
         {Nav ? (
-          <GrClose size={50} color="white" className="close" />
+          <AiOutlineClose size={50} color="white" className="close" />
         ) : (
           <RxHamburgerMenu size={50} color="white" />
         )}

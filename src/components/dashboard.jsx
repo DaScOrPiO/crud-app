@@ -1,14 +1,15 @@
 import Image from "next/image";
-import { MdOutlineExpandMore } from "react-icons/md";
+import { MdOutlineExpandMore, MdOutlineComputer } from "react-icons/md";
 import { IoMdArrowDropleft } from "react-icons/io";
 import Link from "next/link";
-import { GrOverview, GrUserSettings } from "react-icons/gr";
+import { AiOutlineFolderView, AiFillSetting } from "react-icons/ai";
 import { BsReverseListColumnsReverse } from "react-icons/bs";
 import { CgDisplayGrid } from "react-icons/cg";
 import { BiCalendar } from "react-icons/bi";
 import Button from "@/components/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, forwardRef } from "react";
+import Typewriter from "typewriter-effect";
 
 const Dashboard = forwardRef(function Dashboard(props, ref) {
   const [nav, setNav] = useState(false);
@@ -20,10 +21,20 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
   return (
     <>
       <AnimatePresence>
-        <motion.div className="sidebar lg:w-1/4 w-full flex flex-col px-4" ref={ref}>
+        <motion.div
+          className="sidebar lg:w-1/4 w-full flex flex-col px-4"
+          ref={ref}
+        >
           <div className="logo-con w-full p-2">
             <h2 className="text-2xl mt-4 font-bold">Taskmate</h2>
-            <p>Focus, priortize, Excecute</p>
+            <Typewriter
+              options={{
+                strings: ["Focus, priortize, Excecute"],
+                autoStart: true,
+                loop: true,
+                wrapperClassName: "typewritter-text",
+              }}
+            />
 
             <div className="bg-gray-100 rounded-lg w-full mt-4 flex">
               <div className="rounded-full w-1/4 flex items-center justify-center">
@@ -49,7 +60,7 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
               className="flex flex-col mt-6 hover:cursor-pointer"
               onClick={NavDisplay}
             >
-              <div className="flex justify-between mt-4">
+              <div className="flex justify-between mt-4 items-center">
                 <h2 className="text-2xl">Menu</h2>
                 <div className="text-2xl hover:text-gray-300 hover:cursor-pointer">
                   {nav ? <MdOutlineExpandMore /> : <IoMdArrowDropleft />}
@@ -61,7 +72,7 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
                   <ul className="nav-container">
                     <li className="list">
                       <span className="mr-4">
-                        <GrOverview />
+                        <AiOutlineFolderView color="#bea500" />
                       </span>
                       <Link className="link" href="/about">
                         Overview
@@ -70,7 +81,7 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
 
                     <li className="list">
                       <span className="mr-4">
-                        <BsReverseListColumnsReverse />
+                        <BsReverseListColumnsReverse color="#bea500" />
                       </span>
                       <Link className="link flex" href="#">
                         Task List
@@ -79,7 +90,7 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
 
                     <li className="list">
                       <span className="mr-4">
-                        <CgDisplayGrid />
+                        <CgDisplayGrid color="#bea500" />
                       </span>
                       <Link className="link flex" href="">
                         Project Overview
@@ -88,7 +99,7 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
 
                     <li className="list">
                       <span className="mr-4">
-                        <BiCalendar />
+                        <BiCalendar color="#bea500" />
                       </span>
                       <Link className="link flex" href="">
                         Calendar
@@ -97,7 +108,7 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
 
                     <li className="list">
                       <span className="mr-4">
-                        <GrUserSettings />
+                        <AiFillSetting color="#bea500" />
                       </span>
                       <Link className="link flex" href="">
                         Settings
@@ -120,7 +131,7 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
                 </li>
 
                 <li className="list">
-                  <span className="mr-4">💻</span>
+                  <MdOutlineComputer className="mr-4" color="#bea500" />
                   <Link className="link flex" id="thin-font" href="">
                     Work/Studies
                   </Link>
