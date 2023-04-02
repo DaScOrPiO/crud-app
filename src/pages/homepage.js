@@ -4,6 +4,8 @@ import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import { delay, motion, AnimatePresence } from "framer-motion";
+import { data } from "autoprefixer";
+import moment from "moment/moment";
 
 export default function Homepage() {
   const [Width, setWidth] = useState(globalThis.window?.innerWidth);
@@ -17,10 +19,6 @@ export default function Homepage() {
   const showNav = () => {
     setNav((prev) => !prev);
     const element = ref.current;
-
-    // if (!Nav) {
-    //   element.classList.add("no-display");
-    // }
 
     if (Width <= mobileBreakPoint && Nav) {
       element.classList.remove("no-display");
@@ -52,6 +50,8 @@ export default function Homepage() {
       element.classList.remove("no-display");
     }
   }, [Width, Nav]);
+
+  const date = moment(new Date()).format(`DD/MM/YYYY`);
 
   const handleClickOutside = (e) => {
     if (
@@ -97,7 +97,7 @@ export default function Homepage() {
          text-white w-full p-2 items-end"
         >
           <h2 className="text-center text-2xl">Projects</h2>
-          <h2 className="text-center text-2xl">20/03/2023</h2>
+          <h2 className="text-center text-2xl">{date}</h2>
         </header>
 
         <div className="w-full mt-4 flex flex-col py-4">

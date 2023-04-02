@@ -8,7 +8,7 @@ import { CgDisplayGrid } from "react-icons/cg";
 import { BiCalendar } from "react-icons/bi";
 import Button from "@/components/button";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, useEffect } from "react";
 import Typewriter from "typewriter-effect";
 
 const Dashboard = forwardRef(function Dashboard(props, ref) {
@@ -17,6 +17,21 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
   const NavDisplay = () => {
     setNav((prev) => !prev);
   };
+
+  //Date Functionality not working why?
+  const hour = new Date().getHours();
+  const renderGretings = useEffect(() => {
+    const greetings = () => {
+      if (hour <= 11) {
+        return `Good morning user`;
+      } else if (hour > 11 && hour <= 16) {
+        return `Good afternoon user`;
+      } else {
+        return `Good evening user`;
+      }
+    };
+    greetings();
+  }, [hour]);
 
   return (
     <>
@@ -54,7 +69,22 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
           </div>
 
           <div className="greetings h-auto p-2 w-full mt-4">
-            <h2 className="text-center text-2xl">Good morning Oladunni</h2>
+            {hour <= 11 ? (
+              <h2 className="text-center text-2xl">Good morning user</h2>
+            ) : (
+              ""
+            )}
+            {hour > 11 && hour <= 16 ? (
+              <h2 className="text-center text-2xl">Good afternoon user</h2>
+            ) : (
+              ""
+            )}
+
+            {hour > 16 ? (
+              <h2 className="text-center text-2xl">Good evening user</h2>
+            ) : (
+              ""
+            )}
 
             <div
               className="flex flex-col mt-6 hover:cursor-pointer"
