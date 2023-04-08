@@ -1,6 +1,6 @@
 import Dashboard from "@/components/dashboard";
 import Task from "@/components/Task";
-import { useState, useRef, useLayoutEffect, useEffect } from "react";
+import { useState, useRef, useLayoutEffect, useEffect, createRef } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import { delay, motion, AnimatePresence } from "framer-motion";
@@ -12,6 +12,37 @@ export default function Homepage() {
   const [Nav, setNav] = useState(false);
   const ref = useRef();
   const iconRef = useRef();
+  const [Input, setInput] = useState("");
+  const data = [
+    {
+      idx: 1,
+      value: "task one",
+    },
+    {
+      idx: 2,
+      value: "task two",
+    },
+    {
+      idx: 3,
+      value: "Task three",
+    },
+    {
+      idx: 4,
+      value: "Task four",
+    },
+    {
+      idx: 5,
+      value: "task five",
+    },
+    {
+      idx: 6,
+      value: "task six",
+    },
+    {
+      idx: 7,
+      value: "task seven",
+    },
+  ];
 
   const mobileBreakPoint = 767;
   const breakPoint2 = 1023;
@@ -72,6 +103,30 @@ export default function Homepage() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   };
 
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    setInput((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const inputRef = data.map(() => createRef())
+  const edit = () => {
+    // if (inputRef.current.classList.contains("no-display")) {
+    //   inputRef.current.classList.remove("no-display");
+    // } else {
+    //   inputRef.current.classList.add("no-display");
+    // }
+
+    inputRef.forEach((el, i) => {
+      if (el.current.classList.contains("no-display")) {
+        el.current.classList.remove("no-display");
+      } else {
+        el.current.classList.add("no-display");
+      }
+    });
+  };
+
   return (
     <div
       className="page-container w-screen flex md:flex-row flex-col"
@@ -106,33 +161,26 @@ export default function Homepage() {
           <div className="flex flex-col mt-4">
             <h2 className="font-bold text-center">Not Started</h2>
             <div className="not-started flex flex-wrap">
-              <Task status="Not Started" style={{ backgroundColor: "gray" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "gray" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "gray" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "gray" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "gray" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "gray" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "gray" }}>
-                Task One
-              </Task>
+              {data.map((el, i) => {
+                return (
+                  <Task
+                    key={el.idx}
+                    status="Not Started"
+                    style={{ backgroundColor: "gray" }}
+                    edit={edit}
+                  >
+                    <p className="text-center">{el.value}</p>
+                    <input
+                      type="text"
+                      className="no-display change-task rounded-lg outline-0 px-2 w-full"
+                      name="Input"
+                      value={Input}
+                      onChange={handleChange}
+                      ref={inputRef[i]}
+                    />
+                  </Task>
+                );
+              })}
             </div>
 
             <h2 className="font-bold text-center">In progress</h2>

@@ -16,7 +16,7 @@ export default function Task({ children, style, edit, deleteTask, status }) {
 
       <div className="mt-4">{children}</div>
 
-      <div className="flex justify-end" onClick={deleteTask}>
+      <div className="flex justify-end mt-2" onClick={deleteTask}>
         <Image src={require("../images/Delete-btn.png")} alt="" quality={100} />
       </div>
     </div>
