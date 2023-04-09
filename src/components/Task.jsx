@@ -1,6 +1,15 @@
 import Image from "next/image";
+import { MdDone } from "react-icons/md";
+import { AiOutlineEdit } from "react-icons/ai";
 
-export default function Task({ children, style, edit, deleteTask, status }) {
+export default function Task({
+  children,
+  style,
+  edit,
+  deleteTask,
+  status,
+  renderDone,
+}) {
   return (
     <div
       style={style}
@@ -10,7 +19,11 @@ export default function Task({ children, style, edit, deleteTask, status }) {
       <div className="flex justify-between">
         <h2>{status}</h2>
         <span onClick={edit} className="hover:cursor-pointer">
-          <Image src={require("../images/Edit-btn.png")} alt="" quality={100} />
+          {renderDone ? (
+            <MdDone color="green" size="25px" />
+          ) : (
+            <AiOutlineEdit color="white" size="25px" />
+          )}
         </span>
       </div>
 

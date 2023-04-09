@@ -110,11 +110,22 @@ export default function Homepage() {
   };
 
   const inputRef = data.map(() => createRef());
+  const [renderDone, setRenderDone] = useState(Array(data.length).fill(false));
+  const toggle = (idx) => {
+    const newRender = [...renderDone];
+    newRender[idx] = !newRender[idx];
+    setRenderDone(newRender);
+    console.log(newRender);
+  };
+
   const edit = (e) => {
     const test = inputRef.filter((el, i) => {
       if (i == e) return el.current;
     });
-    test.map((el) => {
+    renderDone.filter((el, i) => {
+      if (i == e) return toggle(i)
+    });
+    test.map((el, i) => {
       if (el.current.classList.contains("no-display")) {
         el.current.classList.remove("no-display");
       } else {
@@ -164,6 +175,7 @@ export default function Homepage() {
                     status="Not Started"
                     style={{ backgroundColor: "gray" }}
                     edit={() => edit(i)}
+                    renderDone={renderDone[i]}
                   >
                     <p className="text-center">{el.value}</p>
                     <input
