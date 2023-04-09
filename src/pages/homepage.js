@@ -12,7 +12,7 @@ export default function Homepage() {
   const [Nav, setNav] = useState(false);
   const ref = useRef();
   const iconRef = useRef();
-  const [Input, setInput] = useState("");
+  const [Input, setInput] = useState([]);
   const data = [
     {
       idx: 1,
@@ -103,22 +103,18 @@ export default function Homepage() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   };
 
-  const handleChange = (e) => {
-    const { value, name } = e.target;
-    setInput((prev) => {
-      return { ...prev, [name]: value };
-    });
+  const handleChange = (idx, e) => {
+    const newInput = [...Input];
+    newInput[idx] = e.target.value;
+    setInput(newInput);
   };
 
-  const inputRef = data.map(() => createRef())
-  const edit = () => {
-    // if (inputRef.current.classList.contains("no-display")) {
-    //   inputRef.current.classList.remove("no-display");
-    // } else {
-    //   inputRef.current.classList.add("no-display");
-    // }
-
-    inputRef.forEach((el, i) => {
+  const inputRef = data.map(() => createRef());
+  const edit = (e) => {
+    const test = inputRef.filter((el, i) => {
+      if (i == e) return el.current;
+    });
+    test.map((el) => {
       if (el.current.classList.contains("no-display")) {
         el.current.classList.remove("no-display");
       } else {
@@ -167,15 +163,14 @@ export default function Homepage() {
                     key={el.idx}
                     status="Not Started"
                     style={{ backgroundColor: "gray" }}
-                    edit={edit}
+                    edit={() => edit(i)}
                   >
                     <p className="text-center">{el.value}</p>
                     <input
                       type="text"
                       className="no-display change-task rounded-lg outline-0 px-2 w-full"
-                      name="Input"
-                      value={Input}
-                      onChange={handleChange}
+                      value={Input[i] || ""}
+                      onChange={(e) => handleChange(i, e)}
                       ref={inputRef[i]}
                     />
                   </Task>
