@@ -13,7 +13,7 @@ export default function Homepage() {
   const ref = useRef();
   const iconRef = useRef();
   const [Input, setInput] = useState([]);
-  const data = [
+  const [data, setData] = useState([
     {
       idx: 1,
       value: "task one",
@@ -42,7 +42,7 @@ export default function Homepage() {
       idx: 7,
       value: "task seven",
     },
-  ];
+  ]);
 
   const mobileBreakPoint = 767;
   const breakPoint2 = 1023;
@@ -123,13 +123,38 @@ export default function Homepage() {
       if (i == e) return el.current;
     });
     renderDone.filter((el, i) => {
-      if (i == e) return toggle(i)
+      if (i == e) return toggle(i);
     });
     test.map((el, i) => {
       if (el.current.classList.contains("no-display")) {
         el.current.classList.remove("no-display");
       } else {
         el.current.classList.add("no-display");
+      }
+    });
+  };
+
+  const saveTask = (e, id) => {
+    const filteredData = data.filter((el, i) => {
+      if (i == e) return el;
+    });
+
+    const test = inputRef.filter((el, i) => {
+      if (i == e) return el.current;
+    });
+
+    test.map((el) => {
+      if (el.current.value !== "") {
+        const text = el.current.value;
+        console.log(text);
+        const newData = filteredData.map((el) => el.value).toString();
+        console.log(newData);
+        data.map((el, i) => {
+          if (i == e) {
+            el.value = text
+            const newobj = { ...el };
+          }
+        });
       }
     });
   };
@@ -176,6 +201,7 @@ export default function Homepage() {
                     style={{ backgroundColor: "gray" }}
                     edit={() => edit(i)}
                     renderDone={renderDone[i]}
+                    saveTasks={() => saveTask(i)}
                   >
                     <p className="text-center">{el.value}</p>
                     <input

@@ -9,6 +9,7 @@ export default function Task({
   deleteTask,
   status,
   renderDone,
+  saveTasks
 }) {
   return (
     <div
@@ -20,7 +21,7 @@ export default function Task({
         <h2>{status}</h2>
         <span onClick={edit} className="hover:cursor-pointer">
           {renderDone ? (
-            <MdDone color="green" size="25px" />
+            <MdDone color="green" size="25px" onClick={saveTasks} />
           ) : (
             <AiOutlineEdit color="white" size="25px" />
           )}
