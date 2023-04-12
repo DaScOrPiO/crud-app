@@ -55,6 +55,37 @@ html {
   display: none;
 }
 
+.input-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #2020207e;
+  z-index: 10;
+
+  .newtask-input {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    padding: 0.5% 0.2%;
+    outline: none;
+  }
+
+  .newtask-btn {
+    position: fixed;
+    top: 50%;
+    left: 64%;
+    padding: 0.5% 0.2%;
+    background-color: #202020;
+    color: #fff;
+    width: 4%;
+    &:hover{
+      background-color: #2020207e;
+    }
+  }
+}
+
 .task {
   width: 20%;
 }
@@ -117,6 +148,45 @@ html {
   }
 }
 
+@media screen and (max-width: 1023px) {
+  .footer {
+    height: auto;
+  }
+
+  .task {
+    width: 40%;
+  }
+
+  .input-container {
+    .newtask-input {
+      left: 25%;
+      width: 35%;
+    }
+    .newtask-btn{
+      left: 60%;
+    }
+  }
+
+  // .sidebar {
+  //   display: none;
+  // }
+
+  .icon {
+    display: flex;
+  }
+
+  .page-container {
+    .page-items {
+      width: 100%;
+      margin-left: 0%;
+    }
+    .sidebar {
+      width: 40%;
+      animation: navAnim 1s ease 0s 1 normal forwards;
+    }
+  }
+}
+
 @media screen and (max-width: 767px) {
   .fom {
     margin-top: 5%;
@@ -148,33 +218,14 @@ html {
   .footer {
     height: auto;
   }
-}
 
-@media screen and (max-width: 1023px) {
-  .footer {
-    height: auto;
-  }
-
-  .task {
-    width: 40%;
-  }
-
-  // .sidebar {
-  //   display: none;
-  // }
-
-  .icon {
-    display: flex;
-  }
-
-  .page-container {
-    .page-items {
-      width: 100%;
-      margin-left: 0%;
+  .input-container {
+    .newtask-input {
+      left: 30%;
+      width: 45%;
     }
-    .sidebar {
-      width: 40%;
-      animation: navAnim 1s ease 0s 1 normal forwards;
+    .newtask-btn{
+      left: 75%;
     }
   }
 }

@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function Button({ text }) {
+export default function Button({ text, click }) {
   return (
-    <button
+    <button onClick={click}
       className="rounded-md px-8 py-3 mt-5 text-2xl
-    font-bold bg-black text-white hover:bg-gray-800"
+    font-bold bg-black text-white hover:bg-gray-800 w-full"
     >
       {text}
     </button>

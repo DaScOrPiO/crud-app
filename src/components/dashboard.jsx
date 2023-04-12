@@ -8,11 +8,12 @@ import { CgDisplayGrid } from "react-icons/cg";
 import { BiCalendar } from "react-icons/bi";
 import Button from "@/components/button";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, forwardRef, useEffect } from "react";
+import { useState, forwardRef, useEffect, useRef } from "react";
 import Typewriter from "typewriter-effect";
 
 const Dashboard = forwardRef(function Dashboard(props, ref) {
   const [nav, setNav] = useState(false);
+  const NewInput = useRef();
 
   const NavDisplay = () => {
     setNav((prev) => !prev);
@@ -32,6 +33,28 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
     };
     greetings();
   }, [hour]);
+
+  const handleBtnClick = () => {
+    console.log(props.data);
+    const inputContainer = document.createElement("div");
+    inputContainer.classList.add("input-container", "flex");
+    NewInput.current.appendChild(inputContainer);
+
+    const input = document.createElement("input");
+    input.classList.add("newtask-input");
+    inputContainer.appendChild(input);
+
+    const btn = document.createElement("button");
+    btn.classList.add("newtask-btn");
+    btn.innerText = "+";
+    inputContainer.appendChild(btn);
+
+    const hideNewTaskInput = () => {
+      NewInput.current.removeChild(inputContainer);
+    };
+
+    inputContainer.addEventListener("click", hideNewTaskInput);
+  };
 
   return (
     <>
@@ -169,7 +192,9 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
               </ul>
             </nav>
 
-            <Button text="Add task" />
+            <div ref={NewInput}>
+              <Button text="Add task" click={handleBtnClick} />
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>

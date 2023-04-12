@@ -4,14 +4,15 @@ import { useState, useRef, useLayoutEffect, useEffect, createRef } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import { delay, motion, AnimatePresence } from "framer-motion";
-import { data } from "autoprefixer";
 import moment from "moment/moment";
+import Button from "@/components/button";
 
 export default function Homepage() {
   const [Width, setWidth] = useState(globalThis.window?.innerWidth);
   const [Nav, setNav] = useState(false);
   const ref = useRef();
   const iconRef = useRef();
+  // const newTask = useRef();
   const [Input, setInput] = useState([]);
   const [data, setData] = useState([
     {
@@ -151,7 +152,7 @@ export default function Homepage() {
         console.log(newData);
         data.map((el, i) => {
           if (i == e) {
-            el.value = text
+            el.value = text;
             const newobj = { ...el };
           }
         });
@@ -166,7 +167,7 @@ export default function Homepage() {
     >
       <AnimatePresence>
         <motion.div ref={ref}>
-          <Dashboard />
+          <Dashboard data={data} />
         </motion.div>
       </AnimatePresence>
 
@@ -186,6 +187,17 @@ export default function Homepage() {
           <h2 className="text-center text-2xl">Projects</h2>
           <h2 className="text-center text-2xl">{date}</h2>
         </header>
+
+        {/* <div
+          className="no-display input-container flex"
+          onClick={hideNewTaskInput}
+          ref={newTask}
+        >
+          <input type="text" className="newtask-input" />
+          <button type="submit" className="newtask-btn">
+            +
+          </button>
+        </div> */}
 
         <div className="w-full mt-4 flex flex-col py-4">
           <h2 className="text-2xl font-bold mt-6">Tasks</h2>
