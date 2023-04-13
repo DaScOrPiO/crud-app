@@ -188,17 +188,6 @@ export default function Homepage() {
           <h2 className="text-center text-2xl">{date}</h2>
         </header>
 
-        {/* <div
-          className="no-display input-container flex"
-          onClick={hideNewTaskInput}
-          ref={newTask}
-        >
-          <input type="text" className="newtask-input" />
-          <button type="submit" className="newtask-btn">
-            +
-          </button>
-        </div> */}
-
         <div className="w-full mt-4 flex flex-col py-4">
           <h2 className="text-2xl font-bold mt-6">Tasks</h2>
 

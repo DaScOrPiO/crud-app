@@ -13,7 +13,9 @@ import Typewriter from "typewriter-effect";
 
 const Dashboard = forwardRef(function Dashboard(props, ref) {
   const [nav, setNav] = useState(false);
+  const [taskData, setTaskData] = useState(props.data);
   const NewInput = useRef();
+  const [newInputState, setNewInputState] = useState("");
 
   const NavDisplay = () => {
     setNav((prev) => !prev);
@@ -34,6 +36,14 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
     greetings();
   }, [hour]);
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewInputState((prev) => {
+      return { ...prev, [name]: value };
+    });
+    console.log("input changed");
+  };
+
   const handleBtnClick = () => {
     console.log(props.data);
     const inputContainer = document.createElement("div");
@@ -42,6 +52,9 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
 
     const input = document.createElement("input");
     input.classList.add("newtask-input");
+    input.name = newInputState;
+    input.onchange = handleInputChange;
+    input.value = newInputState;
     inputContainer.appendChild(input);
 
     const btn = document.createElement("button");
@@ -54,6 +67,24 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
     };
 
     inputContainer.addEventListener("click", hideNewTaskInput);
+
+    //Buggy Function
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      console.log(taskData);
+      if (input.value !== "") {
+        console.log(input.value);
+        const newValue = input.value;
+        const newIdx = taskData.length + 1;
+        const newObj = [{ idx: newIdx, value: newValue }];
+        setTaskData([...taskData, ...newObj]);
+        input.value = "";
+      }
+    });
+
+    input.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
   };
 
   return (
