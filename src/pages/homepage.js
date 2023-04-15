@@ -104,6 +104,10 @@ export default function Homepage() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   };
 
+  const updateData = (newdata) => {
+    setData(newdata);
+  };
+
   const handleChange = (idx, e) => {
     const newInput = [...Input];
     newInput[idx] = e.target.value;
@@ -167,7 +171,7 @@ export default function Homepage() {
     >
       <AnimatePresence>
         <motion.div ref={ref}>
-          <Dashboard data={data} />
+          <Dashboard data={data} updateData={updateData} />
         </motion.div>
       </AnimatePresence>
 
