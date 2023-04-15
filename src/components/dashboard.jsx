@@ -76,8 +76,8 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
         console.log(input.value);
         const newValue = input.value;
         const newIdx = taskData.length + 1;
-        const newObj = [{ idx: newIdx, value: newValue }];
-        setTaskData([...taskData, ...newObj]);
+        const newObj = { idx: newIdx, value: newValue };
+        props.updateData([...props.data, newObj]);
         input.value = "";
       }
     });
