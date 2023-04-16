@@ -1,5 +1,8 @@
 {
     "recommendations": [
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "timkmecl.codegpt3",
+        "kiranshah.chatgpt-helper",
+        "easycodeai.chatgpt-gpt4-gpt3-vscode"
     ]
 }

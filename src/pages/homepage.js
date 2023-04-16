@@ -6,6 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { delay, motion, AnimatePresence } from "framer-motion";
 import moment from "moment/moment";
 import Button from "@/components/button";
+import dataObj from '../components/data.js'
 
 export default function Homepage() {
   const [Width, setWidth] = useState(globalThis.window?.innerWidth);
@@ -14,36 +15,7 @@ export default function Homepage() {
   const iconRef = useRef();
   // const newTask = useRef();
   const [Input, setInput] = useState([]);
-  const [data, setData] = useState([
-    {
-      idx: 1,
-      value: "task one",
-    },
-    {
-      idx: 2,
-      value: "task two",
-    },
-    {
-      idx: 3,
-      value: "Task three",
-    },
-    {
-      idx: 4,
-      value: "Task four",
-    },
-    {
-      idx: 5,
-      value: "task five",
-    },
-    {
-      idx: 6,
-      value: "task six",
-    },
-    {
-      idx: 7,
-      value: "task seven",
-    },
-  ]);
+  const [data, setData] = useState(dataObj);
 
   const mobileBreakPoint = 767;
   const breakPoint2 = 1023;
@@ -115,7 +87,7 @@ export default function Homepage() {
   };
 
   const inputRef = data.map(() => createRef());
-  const [renderDone, setRenderDone] = useState(Array(data.length).fill(false));
+  const [renderDone, setRenderDone] = useState(Array(data.length).fill(false)); //bug here
   const toggle = (idx) => {
     const newRender = [...renderDone];
     newRender[idx] = !newRender[idx];
@@ -128,7 +100,7 @@ export default function Homepage() {
       if (i == e) return el.current;
     });
     renderDone.filter((el, i) => {
-      if (i == e) return toggle(i);
+      if (i == e) return toggle(i); //bug here
     });
     test.map((el, i) => {
       if (el.current.classList.contains("no-display")) {
@@ -137,6 +109,7 @@ export default function Homepage() {
         el.current.classList.add("no-display");
       }
     });
+    console.log(data)
   };
 
   const saveTask = (e, id) => {
@@ -164,6 +137,12 @@ export default function Homepage() {
     });
   };
 
+  const deleteTask = (item) => {
+    const filteredData = data.filter((el, i) => i !== item );
+    console.log(filteredData)
+    setData(filteredData);
+  };
+
   return (
     <div
       className="page-container w-screen flex md:flex-row flex-col"
@@ -171,7 +150,14 @@ export default function Homepage() {
     >
       <AnimatePresence>
         <motion.div ref={ref}>
-          <Dashboard data={data} updateData={updateData} />
+          <Dashboard
+            data={data}
+            updateData={updateData}
+            input={Input}
+            setinput={setInput}
+            renderDone={renderDone}
+            setRenderDone={setRenderDone}
+          />
         </motion.div>
       </AnimatePresence>
 
@@ -207,6 +193,7 @@ export default function Homepage() {
                     edit={() => edit(i)}
                     renderDone={renderDone[i]}
                     saveTasks={() => saveTask(i)}
+                    deleteTask={() => deleteTask(i)}
                   >
                     <p className="text-center">{el.value}</p>
                     <input

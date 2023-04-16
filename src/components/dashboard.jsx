@@ -75,10 +75,12 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
       if (input.value !== "") {
         console.log(input.value);
         const newValue = input.value;
-        const newIdx = taskData.length + 1;
+        const newIdx = props.data.length + 1;
         const newObj = { idx: newIdx, value: newValue };
         props.updateData([...props.data, newObj]);
+        props.setRenderDone([...props.renderDone, false]);
         input.value = "";
+        hideNewTaskInput()
       }
     });
 
