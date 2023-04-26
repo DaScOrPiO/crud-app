@@ -6,7 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { delay, motion, AnimatePresence } from "framer-motion";
 import moment from "moment/moment";
 import Button from "@/components/button";
-import dataObj from '../components/data.js'
+import dataObj from "../components/data.js";
 
 export default function Homepage() {
   const [Width, setWidth] = useState(globalThis.window?.innerWidth);
@@ -86,6 +86,7 @@ export default function Homepage() {
     setInput(newInput);
   };
 
+  //Set input state for arrays = data.length
   const inputRef = data.map(() => createRef());
   const [renderDone, setRenderDone] = useState(Array(data.length).fill(false)); //bug here
   const toggle = (idx) => {
@@ -109,7 +110,7 @@ export default function Homepage() {
         el.current.classList.add("no-display");
       }
     });
-    console.log(data)
+    console.log(data);
   };
 
   const saveTask = (e, id) => {
@@ -137,11 +138,21 @@ export default function Homepage() {
     });
   };
 
+  //Delete function
   const deleteTask = (item) => {
-    const filteredData = data.filter((el, i) => i !== item );
-    console.log(filteredData)
+    const filteredData = data.filter((el, i) => i !== item);
+    console.log(filteredData);
     setData(filteredData);
   };
+
+  //unstarted tasks
+  const unStarted = data.filter((el) => el.started === false);
+
+  // Started tasks
+  const started = data.filter((el) => el.started === true);
+
+  //Completed tasks
+  const completed = data.filter((el) => el.completed === true);
 
   return (
     <div
@@ -184,7 +195,7 @@ export default function Homepage() {
           <div className="flex flex-col mt-4">
             <h2 className="font-bold text-center">Not Started</h2>
             <div className="not-started flex flex-wrap">
-              {data.map((el, i) => {
+              {unStarted.map((el, i) => {
                 return (
                   <Task
                     key={el.idx}
@@ -210,64 +221,54 @@ export default function Homepage() {
 
             <h2 className="font-bold text-center">In progress</h2>
             <div className="in-progress flex flex-wrap">
-              <Task status="Not Started" style={{ backgroundColor: "yellow" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "yellow" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "yellow" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "yellow" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "yellow" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "yellow" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "yellow" }}>
-                Task One
-              </Task>
+              {started.map((el, i) => {
+                return (
+                  <Task
+                    key={el.idx}
+                    status="Not Started"
+                    style={{ backgroundColor: "yellow" }}
+                    edit={() => edit(i)}
+                    renderDone={renderDone[i]}
+                    saveTasks={() => saveTask(i)}
+                    deleteTask={() => deleteTask(i)}
+                  >
+                    <p className="text-center">{el.value}</p>
+                    <input
+                      type="text"
+                      className="no-display change-task rounded-lg outline-0 px-2 w-full"
+                      value={Input[i] || ""}
+                      onChange={(e) => handleChange(i, e)}
+                      ref={inputRef[i]}
+                    />
+                  </Task>
+                );
+              })}
             </div>
 
             <h2 className="font-bold text-center">completed</h2>
             <div className="completed flex flex-wrap">
-              <Task status="Not Started" style={{ backgroundColor: "green" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "green" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "green" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "green" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "green" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "green" }}>
-                Task One
-              </Task>
-
-              <Task status="Not Started" style={{ backgroundColor: "green" }}>
-                Task One
-              </Task>
+            {completed.map((el, i) => {
+                return (
+                  <Task
+                    key={el.idx}
+                    status="Not Started"
+                    style={{ backgroundColor: "green" }}
+                    edit={() => edit(i)}
+                    renderDone={renderDone[i]}
+                    saveTasks={() => saveTask(i)}
+                    deleteTask={() => deleteTask(i)}
+                  >
+                    <p className="text-center">{el.value}</p>
+                    <input
+                      type="text"
+                      className="no-display change-task rounded-lg outline-0 px-2 w-full"
+                      value={Input[i] || ""}
+                      onChange={(e) => handleChange(i, e)}
+                      ref={inputRef[i]}
+                    />
+                  </Task>
+                );
+              })}
             </div>
           </div>
         </div>
