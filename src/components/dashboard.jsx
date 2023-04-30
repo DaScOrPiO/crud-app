@@ -162,7 +162,7 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
                       <span className="mr-4">
                         <AiOutlineFolderView color="#bea500" />
                       </span>
-                      <Link className="link" href="/about">
+                      <Link className="link" href="/homepage">
                         Overview
                       </Link>
                     </li>
@@ -189,7 +189,7 @@ const Dashboard = forwardRef(function Dashboard(props, ref) {
                       <span className="mr-4">
                         <BiCalendar color="#bea500" />
                       </span>
-                      <Link className="link flex" href="">
+                      <Link className="link flex" href="/calendar">
                         Calendar
                       </Link>
                     </li>

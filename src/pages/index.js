@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Img from "@/components/img";
 import "../styles/Home.module.scss";
-import Footer from "@/components/footer";
 import Form from "@/components/form";
+import Layout from "@/components/layout";
 
 export default function Home() {
   const handleChange = () => {};
@@ -20,8 +20,11 @@ export default function Home() {
           <Img />
           <Form />
         </section>
-        <Footer />
       </main>
     </>
   );
 }
+
+Home.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>;
+};

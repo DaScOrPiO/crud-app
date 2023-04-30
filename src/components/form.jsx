@@ -34,7 +34,7 @@ export default function Form() {
               </div>
 
               <div className="fom w-full md:w-2/4 md:ml-8">
-                <label htmlfor="password" className="font-bold">
+                <label htmlFor="password" className="font-bold">
                   Password:
                   <input
                     type="password"

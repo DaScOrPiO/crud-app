@@ -1,84 +1,20 @@
 import Dashboard from "@/components/dashboard";
 import Task from "@/components/Task";
 import { useState, useRef, useLayoutEffect, useEffect, createRef } from "react";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { AiOutlineClose } from "react-icons/ai";
 import { delay, motion, AnimatePresence } from "framer-motion";
-import moment from "moment/moment";
 import Button from "@/components/button";
 import dataObj from "../components/data.js";
+import Layout from "../components/layout";
+import NestedLayout from "../components/nestedLayout";
+import Header from "@/components/header.jsx";
 
 export default function Homepage() {
-  const [Width, setWidth] = useState(globalThis.window?.innerWidth);
-  const [Nav, setNav] = useState(false);
-  const ref = useRef();
-  const iconRef = useRef();
-  // const newTask = useRef();
   const [Input, setInput] = useState([]);
-  const [data, setData] = useState(dataObj);
 
   const mobileBreakPoint = 767;
   const breakPoint2 = 1023;
 
-  const showNav = () => {
-    setNav((prev) => !prev);
-    const element = ref.current;
-
-    if (Width <= mobileBreakPoint && Nav) {
-      element.classList.remove("no-display");
-    }
-
-    if (Width <= breakPoint2 && Nav) {
-      element.classList.remove("no-display");
-    }
-  };
-
-  useLayoutEffect(() => {
-    const element = ref.current;
-    console.log(ref.current);
-    if (Width <= mobileBreakPoint && !Nav) {
-      window.addEventListener(
-        "resize",
-        setWidth((prev) => prev)
-      );
-
-      element.classList.add("no-display");
-    } else if (Width <= breakPoint2 && !Nav) {
-      window.addEventListener(
-        "resize",
-        setWidth((prev) => prev)
-      );
-
-      element.classList.add("no-display");
-    } else {
-      element.classList.remove("no-display");
-    }
-  }, [Width, Nav]);
-
-  const date = moment(new Date()).format(`DD/MM/YYYY`);
-
-  const handleClickOutside = (e) => {
-    if (
-      (Width <= mobileBreakPoint &&
-        !ref.current.contains(e.target) &&
-        !Nav &&
-        !iconRef.current.contains(e.target)) ||
-      (Width <= breakPoint2 &&
-        !ref.current.contains(e.target) &&
-        !Nav &&
-        !iconRef.current.contains(e.target))
-    ) {
-      setNav(false);
-      ref.current.classList.add("no-display");
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  };
-
-  const updateData = (newdata) => {
-    setData(newdata);
-  };
+  const [data, setData] = useState(dataObj);
 
   const handleChange = (idx, e) => {
     const newInput = [...Input];
@@ -155,124 +91,96 @@ export default function Homepage() {
   const completed = data.filter((el) => el.completed === true);
 
   return (
-    <div
-      className="page-container w-screen flex md:flex-row flex-col"
-      onClick={handleClickOutside}
-    >
-      <AnimatePresence>
-        <motion.div ref={ref}>
-          <Dashboard
-            data={data}
-            updateData={updateData}
-            input={Input}
-            setinput={setInput}
-            renderDone={renderDone}
-            setRenderDone={setRenderDone}
-          />
-        </motion.div>
-      </AnimatePresence>
+    <div className="mt-4 flex flex-col py-4">
+      <h2 className="text-2xl font-bold mt-6 mx-4">Tasks</h2>
 
-      <i className="icon z-10" onClick={showNav} ref={iconRef}>
-        {Nav ? (
-          <AiOutlineClose size={50} color="white" className="close" />
-        ) : (
-          <RxHamburgerMenu size={50} color="white" />
-        )}
-      </i>
+      <div className="flex flex-col mt-4">
+        <h2 className="font-bold text-center">Not Started</h2>
+        <div className="not-started flex flex-wrap">
+          {unStarted.map((el, i) => {
+            return (
+              <Task
+                key={el.idx}
+                status="Not Started"
+                style={{ backgroundColor: "gray" }}
+                edit={() => edit(i)}
+                renderDone={renderDone[i]}
+                saveTasks={() => saveTask(i)}
+                deleteTask={() => deleteTask(i)}
+              >
+                <p className="text-center">{el.value}</p>
+                <input
+                  type="text"
+                  className="no-display change-task rounded-lg outline-0 px-2 w-full"
+                  value={Input[i] || ""}
+                  onChange={(e) => handleChange(i, e)}
+                  ref={inputRef[i]}
+                />
+              </Task>
+            );
+          })}
+        </div>
 
-      <div className="page-items flex flex-col px-4 py-4">
-        <header
-          className="header flex justify-between
-         text-white w-full p-2 items-end"
-        >
-          <h2 className="text-center text-2xl">Projects</h2>
-          <h2 className="text-center text-2xl">{date}</h2>
-        </header>
+        <h2 className="font-bold text-center">In progress</h2>
+        <div className="in-progress flex flex-wrap">
+          {started.map((el, i) => {
+            return (
+              <Task
+                key={el.idx}
+                status="Not Started"
+                style={{ backgroundColor: "yellow" }}
+                edit={() => edit(i)}
+                renderDone={renderDone[i]}
+                saveTasks={() => saveTask(i)}
+                deleteTask={() => deleteTask(i)}
+              >
+                <p className="text-center">{el.value}</p>
+                <input
+                  type="text"
+                  className="no-display change-task rounded-lg outline-0 px-2 w-full"
+                  value={Input[i] || ""}
+                  onChange={(e) => handleChange(i, e)}
+                  ref={inputRef[i]}
+                />
+              </Task>
+            );
+          })}
+        </div>
 
-        <div className="w-full mt-4 flex flex-col py-4">
-          <h2 className="text-2xl font-bold mt-6">Tasks</h2>
-
-          <div className="flex flex-col mt-4">
-            <h2 className="font-bold text-center">Not Started</h2>
-            <div className="not-started flex flex-wrap">
-              {unStarted.map((el, i) => {
-                return (
-                  <Task
-                    key={el.idx}
-                    status="Not Started"
-                    style={{ backgroundColor: "gray" }}
-                    edit={() => edit(i)}
-                    renderDone={renderDone[i]}
-                    saveTasks={() => saveTask(i)}
-                    deleteTask={() => deleteTask(i)}
-                  >
-                    <p className="text-center">{el.value}</p>
-                    <input
-                      type="text"
-                      className="no-display change-task rounded-lg outline-0 px-2 w-full"
-                      value={Input[i] || ""}
-                      onChange={(e) => handleChange(i, e)}
-                      ref={inputRef[i]}
-                    />
-                  </Task>
-                );
-              })}
-            </div>
-
-            <h2 className="font-bold text-center">In progress</h2>
-            <div className="in-progress flex flex-wrap">
-              {started.map((el, i) => {
-                return (
-                  <Task
-                    key={el.idx}
-                    status="Not Started"
-                    style={{ backgroundColor: "yellow" }}
-                    edit={() => edit(i)}
-                    renderDone={renderDone[i]}
-                    saveTasks={() => saveTask(i)}
-                    deleteTask={() => deleteTask(i)}
-                  >
-                    <p className="text-center">{el.value}</p>
-                    <input
-                      type="text"
-                      className="no-display change-task rounded-lg outline-0 px-2 w-full"
-                      value={Input[i] || ""}
-                      onChange={(e) => handleChange(i, e)}
-                      ref={inputRef[i]}
-                    />
-                  </Task>
-                );
-              })}
-            </div>
-
-            <h2 className="font-bold text-center">completed</h2>
-            <div className="completed flex flex-wrap">
-            {completed.map((el, i) => {
-                return (
-                  <Task
-                    key={el.idx}
-                    status="Not Started"
-                    style={{ backgroundColor: "green" }}
-                    edit={() => edit(i)}
-                    renderDone={renderDone[i]}
-                    saveTasks={() => saveTask(i)}
-                    deleteTask={() => deleteTask(i)}
-                  >
-                    <p className="text-center">{el.value}</p>
-                    <input
-                      type="text"
-                      className="no-display change-task rounded-lg outline-0 px-2 w-full"
-                      value={Input[i] || ""}
-                      onChange={(e) => handleChange(i, e)}
-                      ref={inputRef[i]}
-                    />
-                  </Task>
-                );
-              })}
-            </div>
-          </div>
+        <h2 className="font-bold text-center">completed</h2>
+        <div className="completed flex flex-wrap">
+          {completed.map((el, i) => {
+            return (
+              <Task
+                key={el.idx}
+                status="Not Started"
+                style={{ backgroundColor: "green" }}
+                edit={() => edit(i)}
+                renderDone={renderDone[i]}
+                saveTasks={() => saveTask(i)}
+                deleteTask={() => deleteTask(i)}
+              >
+                <p className="text-center">{el.value}</p>
+                <input
+                  type="text"
+                  className="no-display change-task rounded-lg outline-0 px-2 w-full"
+                  value={Input[i] || ""}
+                  onChange={(e) => handleChange(i, e)}
+                  ref={inputRef[i]}
+                />
+              </Task>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
+
+Homepage.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      <NestedLayout>{page}</NestedLayout>
+    </Layout>
+  );
+};
